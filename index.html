@@ -12,23 +12,32 @@
     </head>
     <body>
        <div>
-        <div class="note" id="c4">C</div>
-        <div class="note" id="d4">D</div>
-        <div class="note" id="e4">E</div>
-        <div class="note" id="f4">F</div>
-        <div class="note" id="g4">G</div>
-        <div class="note" id="a4">A</div>
-        <div class="note" id="b4">B</div>
-        <div class="note" id="c5">C</div>
+        <div class="note" id="c3">C3</div>
+        <div class="note" id="d3">D3</div>
+        <div class="note" id="e3">E3</div>
+        <div class="note" id="f3">F3</div>
+        <div class="note" id="g3">G3</div>
+        <div class="note" id="a3">A3</div>
+        <div class="note" id="b3">B3</div>
+        <div class="note" id="c4">C4</div>
+        <div class="note" id="d4">D4</div>
+        <div class="note" id="e4">E4</div>
+        <div class="note" id="f4">F4</div>
+        <div class="note" id="g4">G4</div>
+        <div class="note" id="a4">A4</div>
+        <div class="note" id="b4">B4</div>
+        <div class="note" id="c5">C5</div>
       </div>
         <button onclick=playInterval()>Play Interval</button>
-        <form>
+        <div>
           Answer:<br>
-          <input type="text">
+          <input id="interval" type="text" >
 
-          <input type="Submit">
+          <button onclick=checkInterval()>Submit</button>
 
-          </form>
+        </div>
+
+        <span id="verify"></span>
     </body>
      <script>
          
@@ -37,16 +46,17 @@
        function playNote(noteVal,octave){piano.play(noteVal,octave,2)}
 
        const clickedNote = document.querySelectorAll("div.note");
-         for(let i = 0; i < clickedNote.length; i++){
+      
+       for(let i = 0; i < clickedNote.length; i++){
            clickedNote[i].onclick = getNoteVal;
-         }
+      }
 
          const cMajorScale = ['C4','D4','E4','F4','G4','A4','B4','C5'];
          const cMajorInterval = {
              'C4' : 'zero',
              'D4' : 'major second',
              'E4' : 'major third',
-             'F4' : 'perferct fourth',
+             'F4' : 'perfect fourth',
              'G4' : 'perfect fifth',
              'A4' : 'major sixth',
              'B4' : 'major seventh',
@@ -55,7 +65,7 @@
          }
          let count = 0;
          const playInterval = function(){
-           console.log("play Interval clicked!")
+           if(count === 7){ count = 0};
            count ++;
            playNote(cMajorScale[0][0],cMajorScale[0][1]);
            
@@ -65,6 +75,16 @@
                 
          }
 
+         const checkInterval = function(){
+           if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
+             document.getElementById('verify').innerHTML = 'CORRECT';
+             console.log('correct');
+           } else{
+             document.getElementById('verify').innerHTML = 'INCORRECT';
+             console.log('Incorrect');
+           }
+           console.log(document.getElementById('interval'));
+         }
         
         </script>
 </html>

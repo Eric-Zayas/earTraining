@@ -4,4 +4,7 @@
   background-color: #FCFCFF;
   border: 1px solid black;
   display: inline-block;
+  text-align: center;
+  font-family: Helvetica;
+  font-size: 20px;
 }
