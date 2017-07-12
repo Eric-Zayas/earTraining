@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html> 
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="audiosynth.js"></script>
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
+    <body>
+       <div>
+        <div class="note" id="c">C</div>
+        <div class="note" id="d">D</div>
+        <div class="note" id="e">E</div>
+        <div class="note" id="f">F</div>
+        <div class="note" id="g">G</div>
+        <div class="note" id="a">A</div>
+        <div class="note" id="b">B</div>
+        <div class="note" id="c">C</div>
+      </div>
+        <button onclick=playInterval()>Play Interval</button>
+        <div><span>Answer:</span><input></input></div>
+    </body>
+     <script>
+         
+       const piano = Synth.createInstrument('piano');
+       function getNoteVal(){playNote(this.id.toUpperCase());}
+       function playNote(noteVal){piano.play(noteVal,4,2)}
+
+       const clickedNote = document.querySelectorAll("div.note");
+         for(let i = 0; i < clickedNote.length; i++){
+           clickedNote[i].onclick = getNoteVal;
+         }
+
+         const cMajorScale = ['C4','D4','E4','F4','G4','A4','B4','C5'];
+         const cMajorInterval = {
+             'C4' : 'zero',
+             'D4' : 'major second',
+             'E4' : 'major third',
+             'F4' : 'minor fourth',
+
+         }
+         let count = 0;
+         const playInterval = function(){
+           console.log("play Interval clicked!")
+           count ++;
+           playNote(cMajorScale[0][0]);
+           
+           setTimeout(function secondNote(){
+             piano.play(cMajorScale[count][0],cMajorScale[count][1],2);
+           },1500);
+                
+         }
+
+        
+        </script>
+</html>

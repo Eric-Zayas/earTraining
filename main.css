@@ -1,0 +1,7 @@
+.note {
+  height: 100px; 
+  width: 50px; 
+  background-color: #FCFCFF;
+  border: 1px solid black;
+  display: inline-block;
+}
