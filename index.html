@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
-       <div>
+       <div class="container">
         <div class="note" id="c3">C3</div>
         <div class="note" id="d3">D3</div>
         <div class="note" id="e3">E3</div>
@@ -28,39 +28,50 @@
         <div class="note" id="b4">B4</div>
         <div class="note" id="c5">C5</div>
       </div>
-        <button onclick=playInterval()>Play Interval</button>
-        <div>
+        <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+        <div class="form">
+          
           Answer:<br>
           <input id="interval" type="text" >
 
           <button onclick=checkInterval()>Submit</button>
-
+          <span id="verify"></span>
         </div>
 
-        <span id="verify"></span>
-    </body>
-     <script>
-         
-       const piano = Synth.createInstrument('piano');
-       function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
-       function playNote(noteVal,octave){piano.play(noteVal,octave,2)}
 
-       const clickedNote = document.querySelectorAll("div.note");
+    </body>
+    <script>
       
-       for(let i = 0; i < clickedNote.length; i++){
+      const piano = Synth.createInstrument('piano');
+      function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
+      function playNote(noteVal,octave){piano.play(noteVal,octave,2)}
+
+      const clickedNote = document.querySelectorAll("div.note");
+      
+      for(let i = 0; i < clickedNote.length; i++){
            clickedNote[i].onclick = getNoteVal;
       }
 
-         const cMajorScale = ['C4','D4','E4','F4','G4','A4','B4','C5'];
-         const cMajorInterval = {
-             'C4' : 'zero',
-             'D4' : 'major second',
-             'E4' : 'major third',
-             'F4' : 'perfect fourth',
-             'G4' : 'perfect fifth',
-             'A4' : 'major sixth',
-             'B4' : 'major seventh',
-             'C5' : 'octave'
+      const notes = ['C3','C#3','D3','D#3','E3','F3','F#3','G3','G#3','A3','A#3','B3','C4','C#4','D4','D#4','E4','F4','F#4','G4','G#4','A4','A#4','B4','C5'];
+
+      const generateScale = function(){
+        const currentMajorScale = [];
+        let rootNote = Math.floor(14 * Math.random()); 
+        
+      }
+
+      
+
+      const cMajorScale = ['C3','D3','E3','F3','G3','A3','B3','C4','D4','E4','F4','G4','A4','B4','C5'];
+      const cMajorInterval = {
+             'C3' : 'zero',
+             'D3' : 'major second',
+             'E3' : 'major third',
+             'F3' : 'perfect fourth',
+             'G3' : 'perfect fifth',
+             'A3' : 'major sixth',
+             'B3' : 'major seventh',
+             'C4' : 'octave'
 
          }
          let count = 0;
@@ -77,7 +88,7 @@
 
          const checkInterval = function(){
            if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
-             document.getElementById('verify').innerHTML = 'CORRECT';
+             document.getElementById('verify').innerHTML = count + ' CORRECT';
              console.log('correct');
            } else{
              document.getElementById('verify').innerHTML = 'INCORRECT';
