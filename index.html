@@ -53,12 +53,22 @@
       }
 
       const notes = ['C3','C#3','D3','D#3','E3','F3','F#3','G3','G#3','A3','A#3','B3','C4','C#4','D4','D#4','E4','F4','F#4','G4','G#4','A4','A#4','B4','C5'];
+      const majorScale = [2,2,1,2,2,2,1];
+      const minorScale = [2,1,2,2,1,2,2];
 
-      const generateScale = function(){
-        const currentMajorScale = [];
+      const currentScale = [];
+      const generateScale = function(scaleType){ 
         let rootNote = Math.floor(14 * Math.random()); 
-        
+        currentScale.push(notes[rootNote]);
+        for(let i = 0; i < scaleType.length; i++){
+          rootNote += scaleType[i];
+          currentScale.push(notes[rootNote]);
+        }
+        console.log(currentScale);
       }
+
+      generateScale(majorScale);
+      generateScale(minorScale);
 
       
 
