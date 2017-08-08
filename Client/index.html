@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
+      <div class="navbar"></div>
        <div class="container">
          <div id="instructions">
           <h2>How to use this App: </h2>
@@ -40,14 +41,14 @@
         <div class="note" id="a4">A4</div>
         <div class="note" id="b4">B4</div>
         <div class="note" id="c5">C5</div> -->
-       
-          <div class="form">
+         <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+        <div class="form">
           
           Answer:<br>
           <input id="interval" type="text" >
             <span id="verify"></span>
           <button onclick=checkInterval()>Submit</button>
-          <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+        
           
         </div>
       </div>
@@ -59,8 +60,16 @@
     </body>
       <!--To do list: 
       Create a small written not interactive tutorial
+      Features to add: 
+      decide beginner, intermidiate, advanced, talented levels
+      randomize intervals
+      generate scale option 
+      nav bar 
+      
+
       Serve up the code from express
       Make it pretty 
+     
       Decide on which features are more important to add  
         bugs to fix :
          display number correct,

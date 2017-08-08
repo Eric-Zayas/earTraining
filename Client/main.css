@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: row;
   /* justify-content: center; */
+    flex-wrap: wrap;
 }
 .note {
   height: 100px; 
-  width: 50px; 
+  width: 36px; 
   background-color: #FCFCFF;
   border: 1px solid black;
 
@@ -17,8 +18,9 @@
 .form{
   display: flex;
   flex-direction: column;
+  margin-left: 1%;
   /* justify-content: center; */
-  flex-wrap: wrap;
+
 }
 
 /* .intervalBtn{
