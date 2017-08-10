@@ -11,8 +11,9 @@
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
-      <div class="navbar"></div>
+     
        <div class="container">
+          <div class="nav"></div>
          <div id="instructions">
           <h2>How to use this App: </h2>
             <ol>
@@ -25,7 +26,7 @@
               </li>
             </ol>
          </div>
-        <div class="container">
+        <div class="container" id="keyboard">
         <div class="note" id="c3">C3</div>
         <div class="note" id="d3">D3</div>
         <div class="note" id="e3">E3</div>
@@ -51,7 +52,14 @@
         
           
         </div>
-      </div>
+       <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Beginner</a>
+    <a href="#">Intermediate</a>
+    <a href="#">Advanced</a>
+  </div>
+</div>
         
       </div>
        
@@ -76,7 +84,28 @@
         must input answer before being able to proceed
     -->
     <script>
-      
+      //interactive stuff
+      function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+      //Music stuff
+
+
       const piano = Synth.createInstrument('piano');
       function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
       function playNote(noteVal,octave){piano.play(noteVal,octave,2)}
