@@ -12,7 +12,23 @@
         <link rel="stylesheet" type="text/css" href="main.css">
     </head>
     <body>
+     <!--To do list: 
+      
+      Features to add in order of importance: 
+      design beginner, intermediate, advanced, talented levels
+      Nav Bar functional
+      generate scale option 
+      re-factor app to angular 2 
+      Make it pretty 
+      deploy app
+  
+      
      
+      Decide on which features are more important to add  
+        bugs to fix :
+         display number correct,
+        must input answer before being able to proceed
+    -->
        <div class="container">
           <div class="nav"><h1>Relative Pitch</h1></div>
          <div id="instructions">
@@ -53,7 +69,9 @@
         <div class="note" id="a4">A4</div>
         <div class="note" id="b4">B4</div>
         <div class="note" id="c5">C5</div> -->
-         <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+        
+        <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+        
         <div class="form">
           
           Answer:
@@ -63,122 +81,94 @@
         
           
         </div>
-       
-        
       </div>
-       
-
-
     </body>
-      <!--To do list: 
-      Create a small written not interactive tutorial
-      Features to add: 
-      decide beginner, intermidiate, advanced, talented levels
-      randomize intervals
-      generate scale option 
-      nav bar 
       
-
-      Serve up the code from express
-      Make it pretty 
-     
-      Decide on which features are more important to add  
-        bugs to fix :
-         display number correct,
-        must input answer before being able to proceed
-    -->
-    <script>
-      //interactive stuff
-      function myFunction() {
+<script>
+//Interactive elements
+  function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
-}
+  }
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
 
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
+        }
       }
     }
   }
-}
-      //Music stuff
+//Music Elements
 
+  const piano = Synth.createInstrument('piano');
+  function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
+  function playNote(noteVal,octave){piano.play(noteVal,octave,2)
+  const clickedNote = document.querySelectorAll("div.note");
+  
+  for(let i = 0; i < clickedNote.length; i++){
+    clickedNote[i].onclick = getNoteVal;
+  }
 
-      const piano = Synth.createInstrument('piano');
-      function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
-      function playNote(noteVal,octave){piano.play(noteVal,octave,2)}
-
-      const clickedNote = document.querySelectorAll("div.note");
-      
-      for(let i = 0; i < clickedNote.length; i++){
-           clickedNote[i].onclick = getNoteVal;
-      }
-
-      const notes = ['C3','C#3','D3','D#3','E3','F3','F#3','G3','G#3','A3','A#3','B3','C4','C#4','D4','D#4','E4','F4','F#4','G4','G#4','A4','A#4','B4','C5'];
-      const majorScale = [2,2,1,2,2,2,1];
-      const minorScale = [2,1,2,2,1,2,2];
-
-      const currentScale = [];
-      const generateScale = function(scaleType){ 
-        let rootNote = Math.floor(14 * Math.random()); 
-        currentScale.push(notes[rootNote]);
-        for(let i = 0; i < scaleType.length; i++){
-          rootNote += scaleType[i];
-          currentScale.push(notes[rootNote]);
-        }
-        console.log(currentScale);
-      }
-
-      generateScale(majorScale);
-      generateScale(minorScale);
-
-      
-      //beginner mode:
-
-      const intervals = {
-             0 : 'zero',
-             1: 'minor second',
-             2 : 'major second',
-             3 : 'minor third',
-             4 : 'major third',
-             5 : 'perfect fourth',
-             6 : ['augmented fourth', 'diminished fifth'],
-             7 : 'perfect fifth',
-             8 : 'minor sixth',
-             9 : 'major sixth',
-             10 : 'minor seventh',
-             11 : 'major seventh',
-             12 : 'octave'
-
-         }
-         let count = 0;
-         const playInterval = function(){
-           if(count === 7){ count = 0};
-           count ++;
-           playNote(cMajorScale[0][0],cMajorScale[0][1]);
-           
-           setTimeout(function secondNote(){
-             piano.play(cMajorScale[count][0],cMajorScale[count][1],2);
-           },1000);
-                
-         }
-
-         const checkInterval = function(){
-           if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
-             document.getElementById('verify').innerHTML = count + ' CORRECT';
-             console.log('correct');
-           } else{
-             document.getElementById('verify').innerHTML = 'INCORRECT';
-             console.log('Incorrect');
-           }
-           console.log(document.getElementById('interval'));
-         }
-        
-        </script>
+  const notes = ['C3','C#3','D3','D#3','E3','F3','F#3','G3','G#3','A3','A#3','B3','C4','C#4','D4','D#4','E4','F4','F#4','G4','G#4','A4','A#4','B4','C5'];
+  const majorScale = [2,2,1,2,2,2,1];
+  const minorScale = [2,1,2,2,1,2,2]
+  const currentScale = [];
+  const generateScale = function(scaleType){ 
+    let rootNote = Math.floor(14 * Math.random()); 
+    currentScale.push(notes[rootNote]);
+    for(let i = 0; i < scaleType.length; i++){
+      rootNote += scaleType[i];
+      currentScale.push(notes[rootNote]);
+    }
+    console.log(currentScale);
+  
+  generateScale(majorScale);
+  generateScale(minorScale)
+  
+  //beginner mode
+  const intervals = {
+         0 : 'zero',
+         1: 'minor second',
+         2 : 'major second',
+         3 : 'minor third',
+         4 : 'major third',
+         5 : 'perfect fourth',
+         6 : ['augmented fourth', 'diminished fifth'],
+         7 : 'perfect fifth',
+         8 : 'minor sixth',
+         9 : 'major sixth',
+         10 : 'minor seventh',
+         11 : 'major seventh',
+         12 : 'octave'
+     }
+     
+     
+     let count = 0;
+     const playInterval = () => {
+       if(count === 7){ count = 0};
+       count ++;
+       playNote(cMajorScale[0][0],cMajorScale[0][1]);
+       
+       setTimeout(secondNote = () => {
+         piano.play(cMajorScale[count][0],cMajorScale[count][1],2);
+       },1000);
+            
+     }
+     const checkInterval = function(){
+       if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
+         document.getElementById('verify').innerHTML = count + ' CORRECT';
+         console.log('correct');
+       } else{
+         document.getElementById('verify').innerHTML = 'INCORRECT';
+         console.log('Incorrect');
+       }
+       console.log(document.getElementById('interval'));
+     }
+     
+    </script>
 </html>
