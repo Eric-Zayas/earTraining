@@ -31,7 +31,7 @@
     -->
        <div class="container">
           <div class="nav"><h1>Relative Pitch</h1></div>
-         <div id="instructions">
+         <!-- <div id="instructions">
           <h2>Tutorial: </h2>
             <ol>
               <li>Turn your volume up</li>
@@ -42,17 +42,17 @@
                   distance between a C3 and D3 is considered to be a major second </span>
               </li>
             </ol>
-         </div>
+         </div> -->
 
 
-  <div class="dropdown">
+  <!-- <div class="dropdown">
     <button onclick="myFunction()" class="dropbtn">Skill</button>
     <div id="myDropdown" class="dropdown-content">
       <a href="#">Beginner</a>
       <a href="#">Intermediate</a>
       <a href="#">Advanced</a>
     </div>
-</div>
+  </div> -->
         <div class="container" id="keyboard">
         <div class="note" id="c3">C3</div>
         <div class="note" id="d3">D3</div>
@@ -70,33 +70,27 @@
         <div class="note" id="b4">B4</div>
         <div class="note" id="c5">C5</div> -->
         
-        <button onclick=playInterval() class="intervalBtn">Play Interval</button>
+      
         
         <div class="form">
-          
-          Answer:
-          <input id="interval" type="text" >
+          <input id="interval" type="text" placeholder="Answer" >
             <span id="verify"></span>
-          <button onclick=checkInterval()>Submit</button>
-        
-          
         </div>
+          <button onclick=checkInterval() id="check">Submit</button>
       </div>
+
+        <button onclick=playInterval() class="intervalBtn">Play Interval</button>
     </body>
       
 <script>
 //Interactive elements
-  function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-  }
-
+  function myFunction() {document.getElementById("myDropdown").classList.toggle("show"); }
 
   window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
+      const dropdowns = document.getElementsByClassName("dropdown-content");
+       for (let i = 0; i < dropdowns.length; i++) {
+        let openDropdown = dropdowns[i];
         if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
         }
@@ -107,7 +101,7 @@
 
   const piano = Synth.createInstrument('piano');
   function getNoteVal(){playNote(this.id[0].toUpperCase(),this.id[1]);}
-  function playNote(noteVal,octave){piano.play(noteVal,octave,2)
+  function playNote(noteVal,octave){piano.play(noteVal,octave,2)};
   const clickedNote = document.querySelectorAll("div.note");
   
   for(let i = 0; i < clickedNote.length; i++){
@@ -116,7 +110,8 @@
 
   const notes = ['C3','C#3','D3','D#3','E3','F3','F#3','G3','G#3','A3','A#3','B3','C4','C#4','D4','D#4','E4','F4','F#4','G4','G#4','A4','A#4','B4','C5'];
   const majorScale = [2,2,1,2,2,2,1];
-  const minorScale = [2,1,2,2,1,2,2]
+  const minorScale = [2,1,2,2,1,2,2];
+  const chromaticScale = [1,1,1,1,1,1,1,1,1,1,1];
   const currentScale = [];
   const generateScale = function(scaleType){ 
     let rootNote = Math.floor(14 * Math.random()); 
@@ -126,14 +121,14 @@
       currentScale.push(notes[rootNote]);
     }
     console.log(currentScale);
-  
+  }
   generateScale(majorScale);
-  generateScale(minorScale)
+  generateScale(minorScale);
   
-  //beginner mode
+ 
   const intervals = {
          0 : 'zero',
-         1: 'minor second',
+         1:  'minor second',
          2 : 'major second',
          3 : 'minor third',
          4 : 'major third',
@@ -145,30 +140,46 @@
          10 : 'minor seventh',
          11 : 'major seventh',
          12 : 'octave'
-     }
-     
-     
-     let count = 0;
-     const playInterval = () => {
-       if(count === 7){ count = 0};
-       count ++;
-       playNote(cMajorScale[0][0],cMajorScale[0][1]);
-       
-       setTimeout(secondNote = () => {
-         piano.play(cMajorScale[count][0],cMajorScale[count][1],2);
-       },1000);
-            
-     }
-     const checkInterval = function(){
-       if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
-         document.getElementById('verify').innerHTML = count + ' CORRECT';
-         console.log('correct');
-       } else{
-         document.getElementById('verify').innerHTML = 'INCORRECT';
-         console.log('Incorrect');
-       }
-       console.log(document.getElementById('interval'));
-     }
-     
-    </script>
+  }
+
+  //Easy mode
+   //life count?
+  //Level One: 
+    //Offer the option to be given the root of the scale(chosen at random)
+    //Go through the intervals one by one, always a major scale in order
+      //If correct, add to correct
+      //If incorrect, add to incorrect, display correct answer, then play the interval that was input by the user in the scale
+  //Level Two: 
+    //Offer option to be given the root of the scale(chosen at random)
+    //Go through intervals at random, could be major or minor scale
+       //If correct, add to correct
+       //If incorrect, add to incorrect, display correct answer, then play the interval that was input by the user in the scale
+  //Level Three: 
+    //Offer option to be given the root of the scale(chosen at random)
+    //Play all chords in the given scale, in order 
+      //ex: C major scale -> c major, d minor, e minor, f major , g major, a minor, b diminished
+  
+  let count = 0;
+  const playIntervalEasy = () => {
+    if(count === 7){count = 0};
+    count ++;
+    playNote(cMajorScale[0][0],cMajorScale[0][1]);
+    
+    setTimeout(secondNote = () => {
+      piano.play(cMajorScale[count][0],cMajorScale[count][1],2);
+    },1000);
+         
+  }
+  const checkInterval = function(){
+    if(document.getElementById('interval').value === cMajorInterval[cMajorScale[count]]){
+      document.getElementById('verify').innerHTML = count + ' CORRECT';
+      console.log('correct');
+    } else{
+      document.getElementById('verify').innerHTML = 'INCORRECT';
+      console.log('Incorrect');
+    }
+    console.log(document.getElementById('interval'));
+  }
+  
+  </script>
 </html>

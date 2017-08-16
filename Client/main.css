@@ -1,11 +1,13 @@
 /*Main  */
 * {
   font-family: 'Source Sans Pro', sans-serif;
+  margin: 0;
 }
 
 
 h1{
   text-align: center;
+  font-size: 20px;
 }
 
 .container{
@@ -43,10 +45,22 @@ h1{
 .form{
   display: flex;
   flex-direction: column;
-  margin-left: 1%;
+  margin: 1%;
+  padding: 0;
   /* justify-content: center; */
 }
+#interval{
+  width: 15em;
+  height: 44px;
+}
  /*Buttons  */
+
+ #check{
+   width: 5em;
+   height: 50px;
+   color: #3FA7D6;
+   margin : 1%;
+ }
  .intervalBtn{
     background-color: #30C5FF;
     color: white;
@@ -55,7 +69,7 @@ h1{
     font-size: 16px;
     border: none;
     cursor: pointer;
-    margin: 1%;
+    margin: 35%;
 }  
 
 .dropbtn {
@@ -79,6 +93,7 @@ h1{
   display: flex;
   background-color: #2A2D34;
   color: white;
+  margin: 0%;
   text-align: center;
 }
 
@@ -89,7 +104,7 @@ h1{
 
 .note {
   height: 100px; 
-  width: 36px; 
+  width: 11%; 
   background-color: #FCFCFF;
   border: 1px solid black;
   text-align: center;
